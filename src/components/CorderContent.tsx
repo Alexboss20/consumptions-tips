@@ -1,19 +1,18 @@
-import { OrderItemType } from "../types"
+import { dbItemType, OrderItemType } from "../types"
 import formatCurrency from "../helpers/index"
 
 type CorderContentProps = {
     order: OrderItemType[]
+    removeItem: (id: dbItemType['id']) => void
 }
 
-export default function CorderContent({order}: CorderContentProps) {
+export default function CorderContent({order, removeItem}: CorderContentProps) {
   return (
     <div>
         <h2 className="font-black text-4xl">Consumo</h2>
 
         <div className="space-y-3 mt-10">
-            {order.length === 0 
-            ? <p className="text-center">La orden esta vacia</p>
-            : (order.map(item =>(
+            {order.map(item =>(
                 <div 
                     key={item.id}
                     className="flex justify-between py-5 border-t items-center border-gray-200 last-of-type:border-b"
@@ -27,11 +26,15 @@ export default function CorderContent({order}: CorderContentProps) {
                             </p>
                         </div>
 
-                    <button className="bg-red-600 w-6 h-6 rounded-full text-white font-black">
+                    <button
+                        className="bg-red-600 w-6 h-6 rounded-full text-white font-black"
+                        onClick={() => removeItem(item.id)}
+                    >
+
                         X
                     </button>
                 </div>
-            )))}
+            ))}
         </div>
 
     </div>

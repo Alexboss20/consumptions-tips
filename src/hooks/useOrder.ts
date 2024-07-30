@@ -4,6 +4,7 @@ import type { dbItemType, OrderItemType } from '../types'
 export default function useOrder () {
 
     const [order, setOrder] = useState<OrderItemType[]>([])
+    const [tip, setTip] = useState(0)
 
     // esta funcion se encarga de agregar items
     const addItem = (item : dbItemType) => {
@@ -31,9 +32,22 @@ export default function useOrder () {
             } 
     }
 
+    const removeItem = (id:dbItemType['id']) => {
+        setOrder(order.filter(item => item.id !== id))
+    }
+
+    const placeOrder = () => {
+        setOrder([])
+        setTip(0)
+    }
+
   return {
     order,
-    addItem
+    tip,
+    setTip,
+    addItem,
+    removeItem,
+    placeOrder
   }
 }
 

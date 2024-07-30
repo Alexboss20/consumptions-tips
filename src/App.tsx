@@ -1,12 +1,14 @@
 import CmenuItems from './components/CmenuItem'
 import CorderContent from './components/CorderContent'
+import CorderTotal from './components/CorderTotal'
+import CtipPercentageForm from './components/CtipPercentageForm'
 import {db} from './data/db'
 import useOrder from './hooks/useOrder'
 
 
 function App() {
 
-  const {order, addItem} = useOrder()
+  const {order, addItem, removeItem, tip, setTip, placeOrder} = useOrder()
  
   return (
     <>
@@ -27,10 +29,23 @@ function App() {
             </div>
           </div>
           <div className='border border-dashed border-slate-300 p-5 rounded-lg space-y-10'>
-            <CorderContent 
-              order={order}
-            />
-
+            {order.length  ? (
+              <>
+                <CorderContent 
+                  order={order}
+                  removeItem={removeItem}
+                />
+                <CtipPercentageForm
+                  setTip ={setTip}
+                  tip={tip}
+                />
+                <CorderTotal
+                  order={order}
+                  tip={tip}
+                  placeOrder={placeOrder}
+                />
+              </>
+            ) : (<p className="text-center">La orden esta vacia</p>)}
           </div>
       </main>
     </>
