@@ -1,7 +1,7 @@
-import type { dbItem } from "../types"
+import type { dbItemType} from "../types"
 
 
-export const db : dbItem[] = [
+export const db : dbItemType[] = [
     {
       "id": 1,
       "name": "Pizza a la Leña Chica",
